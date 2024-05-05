@@ -97,23 +97,63 @@ def queens(N: int) -> str:
     cnf += cnf_atmost_one
 
     # 2. No queen can attack another queen
-    # no two queen in a column -> each column has to have at most 1 queen
-    for j in range(N):
-        for k in range(j+1,N):
-            for i in range(N):
-               
-          
-
-
-    pretty_cnf(cnf_atmost_one, N)
     
+    # no two queen in a column -> each column has to have at most 1 queen
+    # for each column j and for each queen q:
+    #   (x1jq V ... V xnjq) -> for all queen k != q (!X1jk ^ ... ^ !XNjk) 
+    cnf_queen_column = []
+    for j in range(N):
+        for q in range(N):
+            for i1 in range(N):
+               # avoid repeated clauses
+               for k in range(q+1, N):
+                for i2 in range(N):
+                    if k != q:
+                        clause = [-x[i1][j][q], -x[i2][j][k]]
+                        cnf_queen_column.append(clause)
+    cnf += cnf_queen_column
+               
+    # pretty_cnf(cnf_queen_column, N)
 
+    # no two queen in a row -> each row has to have at most 1 queen
+    # for each row i and for each queen q:
+    #   (xi1q V ... V xiNq) -> for all queen k != q (!Xi1k ^ ... ^ !XiNk) 
+    cnf_queen_rows = []
+    for i in range(N):
+        for q in range(N):
+            for j1 in range(N):
+               # avoid repeated clauses
+               for k in range(q+1, N):
+                for j2 in range(N):
+                    if k != q:
+                        clause = [-x[i][j1][q], -x[i][j2][k]]
+                        cnf_queen_rows.append(clause)
+    cnf += cnf_queen_rows
+               
+    # pretty_cnf(cnf_queen_rows, N)
 
+    # no two queen in a diagonal -> each diagonal has to have at most 1 queen
+    # for each row i and for each queen q:
+    #   if for some column j xijq -> for all queen k != q !xldk for some ld s.t
+    #   i-j = l-d 
+    cnf_queen_rows = []
+    for i in range(N):
+        for q in range(N):
+            for j in range(N):
+               # avoid repeated clauses
+               for k in range(q+1, N):
+                for j in range(N):
+                    if k != q:
+                        clause = [-x[i][j1][q], -x[i][j2][k]]
+                        cnf_queen_rows.append(clause)
+    cnf += cnf_queen_rows
+               
+    pretty_cnf(cnf_queen_rows, N)
 
 
 def main():
 
-    queens(2)
+    queens(3)
 
 
 main()
