@@ -1,0 +1,251 @@
+\documentclass[addpoints,12pt]{exam}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usetikzlibrary{
+  matrix,
+  arrows.meta
+}
+
+\printanswers
+
+\bracketedpoints
+\pagestyle{headandfoot}
+\firstpageheader{SAT Solving}{Exercise Sheet 1}{SS 2024}
+\firstpageheadrule
+\firstpagefooter{}{Page \thepage}{}
+
+\qformat{\textbf{Exercise 1.\thequestion}\quad (\thepoints)\hfill}
+\bonusqformat{\textbf{Bonus Exercise 1}\quad (\thepoints)\hfill}
+
+\renewcommand{\questionshook}{%
+\setlength{\leftmargin}{0pt}%
+\setlength{\labelwidth}{-\labelsep}%
+}
+
+\newcommand{\achoices}{
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}
+}
+
+\begin{document} 
+
+\begin{questions}
+
+\question[10] 
+
+\vspace*{5pt}
+Consider the following CNF formulas (given in set notation) over the variable set
+$\mathcal{V} = \{a,b,c\}$.
+For each formula, mark all properties that hold.
+Further, for each satisfiable formula, provide a complete truth assignment over $\mathcal{V}$ that
+satisfies it.
+For each unsatisfiable formula, give a complete truth assignment over $\mathcal{V}$ that
+falsifies it. (Hint: See slides 17-24 of the first set of slides.)
+\vspace*{5pt}
+
+\begin{parts} %replace \choice with \correctchoice for all properties you want to select
+\bracketedpoints
+\pointsinrightmargin
+
+\part[2] $F_2 = \{\{a,\neg b,\neg c\},\{a, b, c\},\{\neg a\},\{\neg b\},\{\neg c\}\}$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\
+
+\part[2] $F_3 = \{\{a,b,\neg b\},\{\neg a, c, \neg c\}\}$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\
+
+\part[2] $F_1 = \{\{a,b,\neg c\},\{\neg a, \neg c\},\{b,c\}\}$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\
+
+\part[2] $F_4 = \emptyset$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\
+
+\part[2] $F_5 = \{\emptyset\}$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\
+
+\end{parts}
+
+
+\newpage
+\question[20]
+\vspace*{5pt}
+
+Consider the following CNF formula $F_6$:
+\[(x_1) \land (x_1 \lor x_2) \land (\neg x_1 \lor \neg x_2) \land (x_2 \lor \neg x_3 \lor x_4) \\
+\land (\neg x_1 \lor \neg x_3 \lor \neg x_4) \land (\neg x_1 \lor x_3 \lor x_4) \land (x_2 \lor x_3 \lor \neg x_4)\]
+
+Execute the DPLL procedure from the lecture on $F_6$ (without using the pure literal rule).
+Write down what you do, in particular give the
+resulting formula whenever Boolean Constraint Propagation is finished. Assume that the
+algorithm always picks  $x_i$ with the smallest $i$ not yet assigned and that it always tries
+the positive phase of the picked variable first.
+(Hint: See slides 21-23 of the second set of slides.)
+
+\newpage
+\question[20]
+\vspace*{5pt}
+
+Look at the following implication graph, which was constructed while solving a formula $F_7$ using the CDCL algorithm.
+Try to reconstruct parts of the formula from the graph and then answer all the questions below.
+(Hint: See slides 12-40 of the third set of slides.)
+\vspace*{10pt}
+
+\begin{adjustbox}{max totalsize={\textwidth}{\textheight},center}
+\begin{tikzpicture}[font=\ttfamily,font=\large]                     
+\tikzstyle{arrow} = [->,thick,arrows= {-Stealth[scale=1.1]},solid,font=\small,auto]
+\matrix (flow) [matrix of nodes,
+				row sep=15mm,
+				column sep=15mm,			
+				nodes={anchor=base,
+					   align=center,
+					   rounded corners=8pt,
+					   text depth=.5ex,text height=2ex,text width=7em}] {
+%Row0:
+	\node[text width=5em] (tl) {top-level};& 
+	&
+	\node (v2) {$x_2$ = 1 @ 0};&
+	\node (v3) {$x_3$ = 0 @ 0};
+	&\\
+%Row1:
+	\node (d1) {decision};&
+	\node (v1) {$x_1$ = 1 @ 1};&	
+	\node (v4) {$x_4$ = 1 @ 1};&
+	&
+	&\\
+%Row2:
+	\node (d2) {decision};&
+	\node (v5) {$x_5$ = 1 @ 2};&
+	\node (v6) {$x_6$ = 0 @ 2};&
+	&
+	&\\
+%Row3:
+	&
+	&
+	\node (v7) {$x_7$ = 1 @ 2};&
+	&
+	&\\
+%Row4:
+	\node (d3) {decision};&
+	\node (v8) {$x_8$ = 0 @ 3};&
+	&
+	&	
+	&\\
+%Row5:
+	\node (d4) {decision};&
+	\node (v9) {$x_9$ = 1 @ 4};&
+	\node (v10) {$x_{10}$ =  1 @ 4};&	
+	\node (v11) {$x_{11}$ = 0 @ 4};&
+	\node (bot) {$\boldsymbol\kappa$};&\\
+%Row6:	
+    &
+	&
+	&
+	\node (v12) {$x_{12}$ = 1 @ 4};&
+	\node (v13) {$x_{13}$ = 0 @ 4};&\\	
+};
+\draw[arrow] (v2) -- (v3);
+\draw[arrow] (v2) -- (v4);
+\draw[arrow] (v3) -- (v4);
+\draw[arrow] (v1) -- (v4);
+\draw[arrow] (v4) -- (v6);
+\draw[arrow] (v5) -- (v6);
+\draw[arrow] (v6) -- (v7);
+\draw[arrow] (v5) -- (v7);
+\draw[arrow] (v6.east) to [bend left=40] (bot.north);
+\draw[arrow] (v7) -- (v10);
+\draw[arrow] (v8) -- (v10);
+\draw[arrow] (v9) -- (v10);
+\draw[arrow] (v10) -- (v11);
+\draw[arrow] (v10) -- (v12);
+\draw[arrow] (v11) -- (bot);
+\draw[arrow] (v11.south) -- (v13);
+\draw[arrow] (v12) -- (v13);
+\draw[arrow] (v13) -- (bot);
+
+\draw[loosely dotted] (-11.5,5.6) -- (9.5,5.6);
+\draw[loosely dotted] (-11.5,3.4) -- (9.5,3.4);
+\draw[loosely dotted] (-11.5,-1) -- (9.5,-1);
+\draw[loosely dotted] (-11.5,-3.3) -- (9.5,-3.3);
+
+
+\end{tikzpicture}
+\end{adjustbox}
+
+\vspace*{10pt}
+
+\begin{parts}
+\bracketedpoints
+\pointsinrightmargin
+
+\part[3] Based on the implication graph, list explicitly as many clauses of $F_7$ as you can.
+
+\part[3] What assignment is on the trail of the solver?
+
+\part[2] Which clause of $F_7$ is falsified?
+
+\part[3] What is the 1st UIP clause here? How did you find it?
+
+\part[3] Give a resolution derivation of the 1st UIP clause. (Hint: use the reverse order of the variable indices if in doubt about which step to do first.)
+
+\part[3] Considering the 1st UIP clause, to which decision level would the solver jump back?
+
+\part[3] What would be the last UIP clause in this graph?
+
+\end{parts}
+
+\newpage
+
+
+\bonusquestion[15]
+\vspace*{5pt}
+
+This practical exercise is completely optional, it gives bonus points but can be ignored without any consequences.
+
+Solve the N-Queens problem with SAT. 
+
+Implement a method \textsc{queens (N)} that, given an argument $N$ (where $N>3$), generates a DIMACS file that
+encodes the \textit{N-Queens problem}.
+The problem asks whether it is possible to place $N$ chess queens on an $N \times N$ chessboard such
+that no two queens can attack each other (i.e., there are no two queens in the same row, column or
+diagonal).
+Try to solve your encoding of the problem with a SAT solver of your choice (for example CaDiCaL, Kissat, or MiniSat, etc.).
+Provide access to your source code (e.g.~send it by mail or give a github link) and write a few sentences about your experiments.
+Preferably use a standard programming language (e.g.~C, C++ or Python) to implement the DIMACS generator.
+Alternatively, you may consider using pySAT.
+
+\end{questions}
+\end{document}
