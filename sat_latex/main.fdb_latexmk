@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1714898796 "/home/instafiore/CF/SAT/practice/assignment_1/2024_sat_solving-ex1.tex" "2024_sat_solving-ex1.pdf" "2024_sat_solving-ex1" 1714898797
+["pdflatex"] 1714983667 "/home/instafiore/CF/SAT/practice/assignment_1/sat_latex/main.tex" "main.pdf" "main" 1714983667
   "/etc/texmf/web2c/texmf.cnf" 1670660465 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/instafiore/CF/SAT/practice/assignment_1/2024_sat_solving-ex1.tex" 1714898796 7153 dbcf25e9f1b896c4b7c8cccac724bd3d ""
+  "/home/instafiore/CF/SAT/practice/assignment_1/sat_latex/main.tex" 1714983665 12215 a7edfc04809ec101ade892ead21af669 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -143,9 +143,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1670704820 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1710501852 1405646 127a116ade7fb8aa86168e4e1cf08516 ""
-  "2024_sat_solving-ex1.aux" 1714898797 2830 65d2ee9f3e6c9795a3038c9726b1103a "pdflatex"
-  "2024_sat_solving-ex1.tex" 1714898796 7153 dbcf25e9f1b896c4b7c8cccac724bd3d ""
+  "main.aux" 1714983667 2978 b9311215f9b06c493229d30e6231e089 "pdflatex"
+  "main.tex" 1714983665 12215 a7edfc04809ec101ade892ead21af669 ""
   (generated)
-  "2024_sat_solving-ex1.aux"
-  "2024_sat_solving-ex1.log"
-  "2024_sat_solving-ex1.pdf"
+  "main.aux"
+  "main.log"
+  "main.pdf"

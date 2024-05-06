@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  5 MAY 2024 10:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  6 MAY 2024 10:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/instafiore/CF/SAT/practice/assignment_1/2024_sat_solving-ex1.tex
-(/home/instafiore/CF/SAT/practice/assignment_1/2024_sat_solving-ex1.tex
+**/home/instafiore/CF/SAT/practice/assignment_1/sat_latex/main.tex
+(/home/instafiore/CF/SAT/practice/assignment_1/sat_latex/main.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (/usr/share/texlive/texmf-dist/tex/latex/exam/exam.cls
 Document Class: exam 2021/02/26 Version 2.7 by Philip Hirschhorn
@@ -423,8 +423,8 @@ File: pgflibraryarrows.meta.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count336
 \l__pdf_internal_box=\box66
-) (./2024_sat_solving-ex1.aux)
-\openout1 = `2024_sat_solving-ex1.aux'.
+) (./main.aux)
+\openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
@@ -482,51 +482,36 @@ Package grfext Info: Graphics extension search list:
 (grfext)             \AppendGraphicsExtensions on input line 504.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-))
-Underfull \hbox (badness 10000) in paragraph at lines 55--63
+)) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 135--137
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 64--72
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 73--81
+[2] [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 82--90
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 91--99
-
- []
-
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-] [2] [3] [4]
+[5] [6]
 This exam contains 4 questions with 12 parts, 0 subparts, and 0 subsubparts.
 This exam has a total of 80 points.
 This exam has a total of 15 bonus points.
-(./2024_sat_solving-ex1.aux) ) 
+(./main.aux) ) 
 Here is how much of TeX's memory you used:
- 16034 strings out of 480247
- 321948 string characters out of 5896151
- 612698 words of memory out of 5000000
- 33692 multiletter control sequences out of 15000+600000
+ 16041 strings out of 480247
+ 321920 string characters out of 5896151
+ 614262 words of memory out of 5000000
+ 33699 multiletter control sequences out of 15000+600000
  477749 words of font info for 57 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 100i,20n,104p,469b,1197s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 100i,20n,104p,471b,1201s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on 2024_sat_solving-ex1.pdf (4 pages, 113964 bytes).
+Output written on main.pdf (6 pages, 123498 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 76 PDF objects out of 1000 (max. 8388607)
+ 47 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

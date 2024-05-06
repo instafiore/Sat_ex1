@@ -1,0 +1,331 @@
+\documentclass[addpoints,12pt]{exam}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usetikzlibrary{
+  matrix,
+  arrows.meta
+}
+
+\bracketedpoints
+\pagestyle{headandfoot}
+\firstpageheader{SAT Solving}{Exercise Sheet 1}{SS 2024}
+\firstpageheadrule
+\firstpagefooter{}{Page \thepage}{}
+
+\qformat{\textbf{Exercise 1.\thequestion}\quad (\thepoints)\hfill}
+\bonusqformat{\textbf{Bonus Exercise 1}\quad (\thepoints)\hfill}
+
+\renewcommand{\questionshook}{%
+\setlength{\leftmargin}{0pt}%
+\setlength{\labelwidth}{-\labelsep}%
+}
+
+\newcommand{\checkedcorrectchoice}[1]{\correctchoice \textbf{#1}}
+
+\newcommand{\achoices}{
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}
+}
+
+\begin{document} 
+
+\begin{questions}
+
+\question[10] 
+
+\vspace*{5pt}
+Consider the following CNF formulas (given in set notation) over the variable set
+$\mathcal{V} = \{a,b,c\}$.
+For each formula, mark all properties that hold.
+Further, for each satisfiable formula, provide a complete truth assignment over $\mathcal{V}$ that
+satisfies it.
+For each unsatisfiable formula, give a complete truth assignment over $\mathcal{V}$ that
+falsifies it. (Hint: See slides 17-24 of the first set of slides.)
+\vspace*{5pt}
+
+\begin{parts} %replace \choice with \correctchoice for all properties you want to select
+\bracketedpoints
+\pointsinrightmargin
+
+\part[2] $F_2 = \{\{a,\neg b,\neg c\},\{a, b, c\},\{\neg a\},\{\neg b\},\{\neg c\}\}$\\
+\begin{oneparcheckboxes}
+\checkedcorrectchoice unsatisfiable\quad\quad
+\correctchoice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\ $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
+
+\part[2] $F_3 = \{\{a,b,\neg b\},\{\neg a, c, \neg c\}\}$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\correctchoice satisfiable\quad\quad
+\correctchoice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\ $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
+
+\part[2] $F_1 = \{\{a,b,\neg c\},\{\neg a, \neg c\},\{b,c\}\}$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\correctchoice refutable\quad\quad
+\correctchoice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\ $\{a\mapsto \top\, b\mapsto \top\, c\mapsto \bot\}$
+
+\part[2] $F_4 = \emptyset$\\
+\begin{oneparcheckboxes}
+\choice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\correctchoice satisfiable\quad\quad
+\correctchoice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\ $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
+
+\part[2] $F_5 = \{\emptyset\}$\\
+\begin{oneparcheckboxes}
+\correctchoice unsatisfiable\quad\quad
+\choice refutable\quad\quad
+\choice satisfiable\quad\quad
+\choice valid\quad\quad
+\end{oneparcheckboxes}\\
+Assignment:\\  $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
+
+\end{parts}
+
+
+\newpage
+\question[20]
+\vspace*{5pt}
+
+Consider the following CNF formula $F_6$:
+\[(x_1) \land (x_1 \lor x_2) \land (\neg x_1 \lor \neg x_2) \land (x_2 \lor \neg x_3 \lor x_4) \\
+\land (\neg x_1 \lor \neg x_3 \lor \neg x_4) \land (\neg x_1 \lor x_3 \lor x_4) \land (x_2 \lor x_3 \lor \neg x_4)\]
+
+Execute the DPLL procedure from the lecture on $F_6$ (without using the pure literal rule).
+Write down what you do, in particular give the
+resulting formula whenever Boolean Constraint Propagation is finished. Assume that the
+algorithm always picks  $x_i$ with the smallest $i$ not yet assigned and that it always tries
+the positive phase of the picked variable first.
+(Hint: See slides 21-23 of the second set of slides.)
+
+Esecution of the DPLL procedure:
+$F_6$:
+\[(x_1) \land (x_1 \lor x_2) \land (\neg x_1 \lor \neg x_2) \land (x_2 \lor \neg x_3 \lor x_4) \\
+\land (\neg x_1 \lor \neg x_3 \lor \neg x_4) \land (\neg x_1 \lor x_3 \lor x_4) \land (x_2 \lor x_3 \lor \neg x_4)\]
+\begin{enumerate}
+    \item $BCP(F_6)$ \\
+        For each unit clause I do the unit propagation.
+        In this case it start with one unit clause $\{x_1\}$. \\
+        Removing all clause where $x_1$ occurs: $\{x_1\},\{x_1 \lor x_2\}$\\
+        For each clause $\{\neg x_1\} \cup C$ I do unit propagation. \\
+        New $F_6$ := $(\neg x_2)\land (x_2 \lor \neg x_3 \lor x_4)
+        \land (\neg x_3 \lor \neg x_4) \land (x_3 \lor x_4) \land (x_2 \lor x_3 \lor \neg x_4)$
+        Another unit clause created: $\{\neg x_2\}$
+        With the same reasoning as in the previous step the new formula after unit propagation is:
+        $F_6$ := $(\neg x_3 \lor x_4)
+        \land (\neg x_3 \lor \neg x_4) \land (x_3 \lor x_4) \land (x_3 \lor \neg x_4)$
+        We can see that we have no unit clause remained, so $BCP$ returns $F_6$.
+    \item Since $F_6 \neq \emptyset$ and $\emptyset \notin F_6$ it chooses a branching variable $x_3 \mapsto \top$ and creating $F_7:=F_6 \land x_3$.
+    Calling in a recursive way the procedure $DPLL(F_7)$\\
+    \item $BCP(F_7)$ \\
+    Unit propagation with the unit clause $\{x_3\}$
+    Removing all clause where $x_3$ occurs: $\{x_3\},\{x_3 \lor x_4\},\{x_3 \lor \neg x_4\}$.\\
+    After doing unit resolution $F_7:= x_4 \land \neg x_4$
+    Two unit clause. Let's take $\{x_4\}$.
+    With the same reasoning as in the previous step $F_7:=\{\emptyset\}$.
+    So $\emptyset \in F_7$ and the recursive call returns to the parent $UNSAT$.
+    \item Returning to the parent it chooses $\neg x_3\mapsto \bot$ and creates: $F_8:=F_6 \land \neg x_3$. Calling in a recursive way $DPLL(F_8).$
+    \item $BCP(F_8)$ \\
+    Unit propagation with the unit clause $\{\neg x_3\}$
+    Removing all clause where $\neg x_3$ occurs: $\{\neg x_3\},\{\neg x_3 \lor x_4\},\{\neg x_3 \lor \neg x_4\}$.\\
+    After doing unit resolution $F_8:= x_4 \land \neg x_4$
+    Two unit clause. Let's take $\{x_4\}$.
+    With the same reasoning as in the previous step $F_8:=\{\emptyset\}$.
+    So $\emptyset \in F_8$ and the recursive call returns to the parent $UNSAT$.
+    \item Returning to the parent it returns $UNSAT$ as well.
+    \item Since it is the last recursive call the procedure terminates.
+    \item The formula $F_6$ is $UNSAT$
+\end{enumerate}
+
+\newpage
+\question[20]
+\vspace*{5pt}
+
+Look at the following implication graph, which was constructed while solving a formula $F_7$ using the CDCL algorithm.
+Try to reconstruct parts of the formula from the graph and then \textbf{Answer} all the questions below.
+(Hint: See slides 12-40 of the third set of slides.)
+\vspace*{10pt}
+
+\begin{adjustbox}{max totalsize={\textwidth}{\textheight},center}
+\begin{tikzpicture}[font=\ttfamily,font=\large]                     
+\tikzstyle{arrow} = [->,thick,arrows= {-Stealth[scale=1.1]},solid,font=\small,auto]
+\matrix (flow) [matrix of nodes,
+				row sep=15mm,
+				column sep=15mm,			
+				nodes={anchor=base,
+					   align=center,
+					   rounded corners=8pt,
+					   text depth=.5ex,text height=2ex,text width=7em}] {
+%Row0:
+	\node[text width=5em] (tl) {top-level};& 
+	&
+	\node (v2) {$x_2$ = 1 @ 0};&
+	\node (v3) {$x_3$ = 0 @ 0};
+	&\\
+%Row1:
+	\node (d1) {decision};&
+	\node (v1) {$x_1$ = 1 @ 1};&	
+	\node (v4) {$x_4$ = 1 @ 1};&
+	&
+	&\\
+%Row2:
+	\node (d2) {decision};&
+	\node (v5) {$x_5$ = 1 @ 2};&
+	\node (v6) {$x_6$ = 0 @ 2};&
+	&
+	&\\
+%Row3:
+	&
+	&
+	\node (v7) {$x_7$ = 1 @ 2};&
+	&
+	&\\
+%Row4:
+	\node (d3) {decision};&
+	\node (v8) {$x_8$ = 0 @ 3};&
+	&
+	&	
+	&\\
+%Row5:
+	\node (d4) {decision};&
+	\node (v9) {$x_9$ = 1 @ 4};&
+	\node (v10) {$x_{10}$ =  1 @ 4};&	
+	\node (v11) {$x_{11}$ = 0 @ 4};&
+	\node (bot) {$\boldsymbol\kappa$};&\\
+%Row6:	
+    &
+	&
+	&
+	\node (v12) {$x_{12}$ = 1 @ 4};&
+	\node (v13) {$x_{13}$ = 0 @ 4};&\\	
+};
+\draw[arrow] (v2) -- (v3);
+\draw[arrow] (v2) -- (v4);
+\draw[arrow] (v3) -- (v4);
+\draw[arrow] (v1) -- (v4);
+\draw[arrow] (v4) -- (v6);
+\draw[arrow] (v5) -- (v6);
+\draw[arrow] (v6) -- (v7);
+\draw[arrow] (v5) -- (v7);
+\draw[arrow] (v6.east) to [bend left=40] (bot.north);
+\draw[arrow] (v7) -- (v10);
+\draw[arrow] (v8) -- (v10);
+\draw[arrow] (v9) -- (v10);
+\draw[arrow] (v10) -- (v11);
+\draw[arrow] (v10) -- (v12);
+\draw[arrow] (v11) -- (bot);
+\draw[arrow] (v11.south) -- (v13);
+\draw[arrow] (v12) -- (v13);
+\draw[arrow] (v13) -- (bot);
+
+\draw[loosely dotted] (-11.5,5.6) -- (9.5,5.6);
+\draw[loosely dotted] (-11.5,3.4) -- (9.5,3.4);
+\draw[loosely dotted] (-11.5,-1) -- (9.5,-1);
+\draw[loosely dotted] (-11.5,-3.3) -- (9.5,-3.3);
+
+
+\end{tikzpicture}
+\end{adjustbox}
+
+\vspace*{10pt}
+
+\begin{parts}
+\bracketedpoints
+\pointsinrightmargin
+
+\part[3] Based on the implication graph, list explicitly as many clauses of $F_7$ as you can. \\
+\textbf{Answer}: \\
+    $\{x_{13},x_6\}, \{\neg x_{13}, x_{11}, \neg x_{12}\}, \{\neg x_{11},\neg x_{10}\}, \{x_{12},\neg x_{10}\},\{ x_{10},\neg x_{9}, \neg x_7, x_8\}, \\ \{ \neg x_{5},x_{6}, x_7\}, \{ \neg x_{4}, \neg x_5, \neg x_6\}, \{\neg x_{2}, \neg x_1, x_3, x_4\}, \{x_{2}\} , \{\neg x_2, \neg x_3\} 
+    $
+
+\part[3] What assignment is on the trail of the solver? \\
+\textbf{Answer}: \\ $\{
+x_2 \mapsto \top,
+x_3 \mapsto \bot,
+x_1 \mapsto \top,
+x_4 \mapsto \top,
+x_5 \mapsto \top,
+x_6 \mapsto \bot,
+x_7 \mapsto \top,
+x_8 \mapsto \bot,
+x_9 \mapsto \top,
+x_{10} \mapsto \top,
+x_{11} \mapsto \bot,
+x_{12} \mapsto \top,
+x_{13} \mapsto \bot,
+\}$
+\part[2] Which clause of $F_7$ is falsified? \\
+\textbf{Answer}: \\  $\{x_{13},x_6\}$
+
+\part[3] What is the 1st UIP clause here? How did you find it? \\
+\textbf{Answer}:\\  1st UIP $:= \{\neg x_{10}, x_6 \}$
+Starting from the conflict clause $\{x_{13}, x_6\}$ applying resolution in a recursive way with the clauses defined by the implication graph using an arbitrary order for the pivot literal ( always a literal with decision level 4 ) and at each step learning a new learning clause derived by the resolution step. When I have found a learning clause with exactly one literal with decision level 4 I stopped.
+\part[3] Give a resolution derivation of the 1st UIP clause. (Hint: use the reverse order of the variable indices if in doubt about which step to do first.)\\
+\textbf{Answer}: \\
+\begin{enumerate}
+    \item   Resolve $\{x_{13},x_6\}$ and $\{x_{11},\neg x_{12},\neg x_{13}\}$:
+            \begin{equation*}
+                \frac{\{x_{13},x_6\}, \{x_{11},\neg x_{12},\neg x_{13}\}}
+                {\{x_{11},\neg x_{12}, x_6\}}
+            \end{equation*}
+    \item   Resolve $\{x_{11},\neg x_{12}, x_6\}$ and $\{\neg x_{10},\neg x_{11}\}$:
+            \begin{equation*}
+                \frac{\{x_{11},\neg x_{12}, x_6\}, \{\neg x_{10},\neg x_{11}\}}
+                {\{\neg x_{10},\neg x_{12}, x_6\}}
+            \end{equation*}
+    \item   Resolve $\{\neg x_{10},\neg x_{12}, x_6\}$ and $\{\neg x_{10},x_{12}\}$:
+            \begin{equation*}
+                \frac{\{\neg x_{10},\neg x_{12}, x_6\}, \{\neg x_{10},x_{12}\}}
+                {\{\neg x_{10}, x_6\}}
+            \end{equation*}
+    \item Number of literals of decision level 4 in $C=\{\neg x_{10}, x_6\}$ equal to 1, so C is the 1st UIP.
+\end{enumerate}
+
+
+\part[3] Considering the 1st UIP clause, to which decision level would the solver jump back?
+
+\textbf{Answer}: \\ 2
+
+\part[3] What would be the last UIP clause in this graph? \\ 
+\textbf{Answer}: \\ It would be $:=\{\neg x_9, x_8, \neg x_7, x_6\}$
+\end{parts}
+
+\newpage
+
+
+\bonusquestion[15]
+\vspace*{5pt}
+
+This practical exercise is completely optional, it gives bonus points but can be ignored without any consequences.
+
+Solve the N-Queens problem with SAT. 
+
+Implement a method \textsc{queens (N)} that, given an argument $N$ (where $N>3$), generates a DIMACS file that
+encodes the \textit{N-Queens problem}.
+The problem asks whether it is possible to place $N$ chess queens on an $N \times N$ chessboard such
+that no two queens can attack each other (i.e., there are no two queens in the same row, column or
+diagonal).
+Try to solve your encoding of the problem with a SAT solver of your choice (for example CaDiCaL, Kissat, or MiniSat, etc.).
+Provide access to your source code (e.g.~send it by mail or give a github link) and write a few sentences about your experiments.
+Preferably use a standard programming language (e.g.~C, C++ or Python) to implement the DIMACS generator.
+Alternatively, you may consider using pySAT.
+
+\end{questions}
+\end{document}
