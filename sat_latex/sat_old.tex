@@ -54,48 +54,50 @@ falsifies it. (Hint: See slides 17-24 of the first set of slides.)
 
 \part[2] $F_2 = \{\{a,\neg b,\neg c\},\{a, b, c\},\{\neg a\},\{\neg b\},\{\neg c\}\}$\\
 \begin{oneparcheckboxes}
-\choice unsatisfiable\quad\quad
-\choice refutable\quad\quad
+\correctchoice unsatisfiable\quad\quad
+\correctchoice refutable\quad\quad
 \choice satisfiable\quad\quad
 \choice valid\quad\quad
 \end{oneparcheckboxes}\\
-Assignment:\\
+Assignment:\\ $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
+
 
 \part[2] $F_3 = \{\{a,b,\neg b\},\{\neg a, c, \neg c\}\}$\\
 \begin{oneparcheckboxes}
 \choice unsatisfiable\quad\quad
 \choice refutable\quad\quad
-\choice satisfiable\quad\quad
-\choice valid\quad\quad
+\correctchoice satisfiable\quad\quad
+\correctchoice valid\quad\quad
 \end{oneparcheckboxes}\\
-Assignment:\\
+Assignment:\\ $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
 
 \part[2] $F_1 = \{\{a,b,\neg c\},\{\neg a, \neg c\},\{b,c\}\}$\\
 \begin{oneparcheckboxes}
 \choice unsatisfiable\quad\quad
-\choice refutable\quad\quad
-\choice satisfiable\quad\quad
+\correctchoice refutable\quad\quad
+\correctchoice satisfiable\quad\quad
 \choice valid\quad\quad
 \end{oneparcheckboxes}\\
-Assignment:\\
+Assignment:\\ $\{a\mapsto \top\, b\mapsto \top\, c\mapsto \bot\}$
 
 \part[2] $F_4 = \emptyset$\\
 \begin{oneparcheckboxes}
 \choice unsatisfiable\quad\quad
 \choice refutable\quad\quad
-\choice satisfiable\quad\quad
-\choice valid\quad\quad
+\correctchoice satisfiable\quad\quad
+\correctchoice valid\quad\quad
 \end{oneparcheckboxes}\\
-Assignment:\\
+Assignment:\\ $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
+
 
 \part[2] $F_5 = \{\emptyset\}$\\
 \begin{oneparcheckboxes}
-\choice unsatisfiable\quad\quad
-\choice refutable\quad\quad
+\correctchoice unsatisfiable\quad\quad
+\correctchoice refutable\quad\quad
 \choice satisfiable\quad\quad
 \choice valid\quad\quad
 \end{oneparcheckboxes}\\
-Assignment:\\
+Assignment:\\  $\{a\mapsto \bot\, b\mapsto \bot\, c\mapsto \bot\}$
 
 \end{parts}
 
@@ -114,7 +116,44 @@ resulting formula whenever Boolean Constraint Propagation is finished. Assume th
 algorithm always picks  $x_i$ with the smallest $i$ not yet assigned and that it always tries
 the positive phase of the picked variable first.
 (Hint: See slides 21-23 of the second set of slides.)
-
+Esecution of the DPLL procedure:
+$F_6$:
+\[(x_1) \land (x_1 \lor x_2) \land (\neg x_1 \lor \neg x_2) \land (x_2 \lor \neg x_3 \lor x_4) \\
+\land (\neg x_1 \lor \neg x_3 \lor \neg x_4) \land (\neg x_1 \lor x_3 \lor x_4) \land (x_2 \lor x_3 \lor \neg x_4)\]
+\begin{enumerate}
+    \item $BCP(F_6)$ \\
+        For each unit clause I do the unit propagation.
+        In this case it start with one unit clause $\{x_1\}$. \\
+        Removing all clause where $x_1$ occurs: $\{x_1\},\{x_1 \lor x_2\}$\\
+        For each clause $\{\neg x_1\} \cup C$ I do unit propagation. \\
+        New $F_6$ := $(\neg x_2)\land (x_2 \lor \neg x_3 \lor x_4)
+        \land (\neg x_3 \lor \neg x_4) \land (x_3 \lor x_4) \land (x_2 \lor x_3 \lor \neg x_4)$
+        Another unit clause created: $\{\neg x_2\}$
+        With the same reasoning as in the previous step the new formula after unit propagation is:
+        $F_6$ := $(\neg x_3 \lor x_4)
+        \land (\neg x_3 \lor \neg x_4) \land (x_3 \lor x_4) \land (x_3 \lor \neg x_4)$
+        We can see that we have no unit clause remained, so $BCP$ returns $F_6$.
+    \item Since $F_6 \neq \emptyset$ and $\emptyset \notin F_6$ it chooses a branching variable $x_3 \mapsto \top$ and creating $F_7:=F_6 \land x_3$.
+    Calling in a recursive way the procedure $DPLL(F_7)$\\
+    \item $BCP(F_7)$ \\
+    Unit propagation with the unit clause $\{x_3\}$
+    Removing all clause where $x_3$ occurs: $\{x_3\},\{x_3 \lor x_4\},\{x_3 \lor \neg x_4\}$.\\
+    After doing unit resolution $F_7:= x_4 \land \neg x_4$
+    Two unit clause. Let's take $\{x_4\}$.
+    With the same reasoning as in the previous step $F_7:=\{\emptyset\}$.
+    So $\emptyset \in F_7$ and the recursive call returns to the parent $UNSAT$.
+    \item Returning to the parent it chooses $\neg x_3\mapsto \bot$ and creates: $F_8:=F_6 \land \neg x_3$. Calling in a recursive way $DPLL(F_8).$
+    \item $BCP(F_8)$ \\
+    Unit propagation with the unit clause $\{\neg x_3\}$
+    Removing all clause where $\neg x_3$ occurs: $\{\neg x_3\},\{\neg x_3 \lor x_4\},\{\neg x_3 \lor \neg x_4\}$.\\
+    After doing unit resolution $F_8:= x_4 \land \neg x_4$
+    Two unit clause. Let's take $\{x_4\}$.
+    With the same reasoning as in the previous step $F_8:=\{\emptyset\}$.
+    So $\emptyset \in F_8$ and the recursive call returns to the parent $UNSAT$.
+    \item Returning to the parent it returns $UNSAT$ as well.
+    \item Since it is the last recursive call the procedure terminates.
+    \item The formula $F_6$ is $UNSAT$
+\end{enumerate}
 \newpage
 \question[20]
 \vspace*{5pt}
@@ -211,20 +250,62 @@ Try to reconstruct parts of the formula from the graph and then answer all the q
 \bracketedpoints
 \pointsinrightmargin
 
-\part[3] Based on the implication graph, list explicitly as many clauses of $F_7$ as you can.
 
-\part[3] What assignment is on the trail of the solver?
+\part[3] Based on the implication graph, list explicitly as many clauses of $F_7$ as you can. \\
+\textbf{Answer}: \\
+    $\{x_{13},x_6\}, \{\neg x_{13}, x_{11}, \neg x_{12}\}, \{\neg x_{11},\neg x_{10}\}, \{x_{12},\neg x_{10}\},\{ x_{10},\neg x_{9}, \neg x_7, x_8\}, \\ \{ \neg x_{5},x_{6}, x_7\}, \{ \neg x_{4}, \neg x_5, \neg x_6\}, \{\neg x_{2}, \neg x_1, x_3, x_4\}, \{x_{2}\} , \{\neg x_2, \neg x_3\} 
+    $
 
-\part[2] Which clause of $F_7$ is falsified?
+\part[3] What assignment is on the trail of the solver? \\
+\textbf{Answer}: \\ $\{
+x_2 \mapsto \top,
+x_3 \mapsto \bot,
+x_1 \mapsto \top,
+x_4 \mapsto \top,
+x_5 \mapsto \top,
+x_6 \mapsto \bot,
+x_7 \mapsto \top,
+x_8 \mapsto \bot,
+x_9 \mapsto \top,
+x_{10} \mapsto \top,
+x_{11} \mapsto \bot,
+x_{12} \mapsto \top,
+x_{13} \mapsto \bot,
+\}$
+\part[2] Which clause of $F_7$ is falsified? \\
+\textbf{Answer}: \\  $\{x_{13},x_6\}$
 
-\part[3] What is the 1st UIP clause here? How did you find it?
+\part[3] What is the 1st UIP clause here? How did you find it? \\
+\textbf{Answer}:\\  1st UIP $:= \{\neg x_{10}, x_6 \}$
+Starting from the conflict clause $\{x_{13}, x_6\}$ applying resolution in a recursive way with the clauses defined by the implication graph using an arbitrary order for the pivot literal ( always a literal with decision level 4 ) and at each step learning a new learning clause derived by the resolution step. When I have found a learning clause with exactly one literal with decision level 4 I stopped.
+\part[3] Give a resolution derivation of the 1st UIP clause. (Hint: use the reverse order of the variable indices if in doubt about which step to do first.)\\
+\textbf{Answer}: \\
+\begin{enumerate}
+    \item   Resolve $\{x_{13},x_6\}$ and $\{x_{11},\neg x_{12},\neg x_{13}\}$:
+            \begin{equation*}
+                \frac{\{x_{13},x_6\}, \{x_{11},\neg x_{12},\neg x_{13}\}}
+                {\{x_{11},\neg x_{12}, x_6\}}
+            \end{equation*}
+    \item   Resolve $\{x_{11},\neg x_{12}, x_6\}$ and $\{\neg x_{10},\neg x_{11}\}$:
+            \begin{equation*}
+                \frac{\{x_{11},\neg x_{12}, x_6\}, \{\neg x_{10},\neg x_{11}\}}
+                {\{\neg x_{10},\neg x_{12}, x_6\}}
+            \end{equation*}
+    \item   Resolve $\{\neg x_{10},\neg x_{12}, x_6\}$ and $\{\neg x_{10},x_{12}\}$:
+            \begin{equation*}
+                \frac{\{\neg x_{10},\neg x_{12}, x_6\}, \{\neg x_{10},x_{12}\}}
+                {\{\neg x_{10}, x_6\}}
+            \end{equation*}
+    \item Number of literals of decision level 4 in $C=\{\neg x_{10}, x_6\}$ equal to 1, so C is the 1st UIP.
+\end{enumerate}
 
-\part[3] Give a resolution derivation of the 1st UIP clause. (Hint: use the reverse order of the variable indices if in doubt about which step to do first.)
 
 \part[3] Considering the 1st UIP clause, to which decision level would the solver jump back?
 
-\part[3] What would be the last UIP clause in this graph?
+\textbf{Answer}:  2
 
+\part[3] What would be the last UIP clause in this graph? \\ 
+\textbf{Answer}:  It would be $:=\{\neg x_9, x_8, \neg x_7, x_6\}$
 \end{parts}
 
 \newpage

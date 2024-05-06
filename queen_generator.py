@@ -103,7 +103,7 @@ def queens(N: int) -> str:
     cnf = []
 
     # 1. each queen has to be placed in exactly one square
-    # at least one constraint: eache queen has to be placed in at least one square
+    # at least one constraint: each queen has to be placed in at least one square
     cnf_atleast_one = []
     for q in range(N):
         cnf_atleast_one_q = []
@@ -199,7 +199,7 @@ def write_cnf(cnf: CNF) -> None:
 
 def debug():
 
-    # number of queen
+    # number of queens
     N = 4
     cnf_list = queens(4)
 
